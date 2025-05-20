@@ -10,7 +10,15 @@ import 'react-datepicker/dist/react-datepicker.css';
 const RoomDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const room = rooms.find(r => r.id === id);
-  const { setSelectedRoom, setCheckInDate, setCheckOutDate, setGuests, isRoomAvailable } = useBooking();
+  const { 
+    setSelectedRoom, 
+    setCheckInDate, 
+    setCheckOutDate, 
+    setGuests, 
+    isRoomAvailable, 
+    selectedBoard,
+    setSelectedBoard
+  } = useBooking();
   
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [localCheckIn, setLocalCheckIn] = useState<Date | null>(null);
@@ -47,7 +55,7 @@ const RoomDetailPage: React.FC = () => {
   };
 
   const handleBookNow = () => {
-    if (!room) return;
+    if (!room || !localCheckIn || !localCheckOut) return;
     
     setSelectedRoom(room);
     setCheckInDate(localCheckIn);
@@ -107,7 +115,11 @@ const RoomDetailPage: React.FC = () => {
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
                 <h1 className="text-3xl font-bold text-gray-900">{room.name}</h1>
                 <div className="mt-2 sm:mt-0 bg-amber-500 text-white px-4 py-2 rounded-full text-lg font-medium">
-                  ${room.price}/night
+                  ${
+                    selectedBoard === 'BB' ? room.price : 
+                    selectedBoard === 'HB' ? room.priceHalfBoard : 
+                    room.priceFullBoard
+                  }/night
                 </div>
               </div>
               
@@ -163,6 +175,63 @@ const RoomDetailPage: React.FC = () => {
                   alt={`${room.name} - View`}
                   className="w-full h-full object-cover"
                 />
+              </div>
+            </div>
+
+            <div className="bg-white rounded-lg shadow-md p-6">
+              <h2 className="text-xl font-semibold text-gray-900 mb-3">Rate Options</h2>
+              <div className="space-y-4">
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-2">Select Your Board:</h3>
+                  <div className="flex space-x-4">
+                    <label className="inline-flex items-center">
+                      <input
+                        type="radio"
+                        className="form-radio text-green-800"
+                        name="boardOption"
+                        value="BB"
+                        checked={selectedBoard === 'BB'}
+                        onChange={() => setSelectedBoard('BB')}
+                      />
+                      <span className="ml-2 text-gray-700">Bed and Breakfast (${room.price}/night)</span>
+                    </label>
+                    {room.priceHalfBoard && (
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          className="form-radio text-green-800"
+                          name="boardOption"
+                          value="HB"
+                          checked={selectedBoard === 'HB'}
+                          onChange={() => setSelectedBoard('HB')}
+                        />
+                        <span className="ml-2 text-gray-700">Half Board (${room.priceHalfBoard}/night)</span>
+                      </label>
+                    )}
+                    {room.priceFullBoard && (
+                      <label className="inline-flex items-center">
+                        <input
+                          type="radio"
+                          className="form-radio text-green-800"
+                          name="boardOption"
+                          value="FB"
+                          checked={selectedBoard === 'FB'}
+                          onChange={() => setSelectedBoard('FB')}
+                        />
+                        <span className="ml-2 text-gray-700">Full Board (${room.priceFullBoard}/night)</span>
+                      </label>
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-2">Children's Rates:</h3>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• Ages 14 and above: Adult rate applies</li>
+                    <li>• Ages 5-14: 50% of adult sharing rate</li>
+                    <li>• Under 5 years: Free of charge</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
@@ -232,15 +301,29 @@ const RoomDetailPage: React.FC = () => {
                   <h3 className="font-medium text-gray-900 mb-3">Price Details</h3>
                   <div className="flex justify-between mb-2">
                     <span className="text-gray-600">
-                      ${room.price} x {Math.ceil((localCheckOut.getTime() - localCheckIn.getTime()) / (1000 * 60 * 60 * 24))} nights
+                      ${
+                         selectedBoard === 'BB' ? room.price : 
+                         selectedBoard === 'HB' ? room.priceHalfBoard : 
+                         room.priceFullBoard
+                      } x {Math.ceil((localCheckOut.getTime() - localCheckIn.getTime()) / (1000 * 60 * 60 * 24))} nights
                     </span>
                     <span className="text-gray-900 font-medium">
-                      ${room.price * Math.ceil((localCheckOut.getTime() - localCheckIn.getTime()) / (1000 * 60 * 60 * 24))}
+                      ${
+                        (selectedBoard === 'BB' ? room.price : 
+                         selectedBoard === 'HB' ? room.priceHalfBoard : 
+                         room.priceFullBoard) * Math.ceil((localCheckOut.getTime() - localCheckIn.getTime()) / (1000 * 60 * 60 * 24))
+                      }
                     </span>
                   </div>
                   <div className="flex justify-between font-bold pt-2 border-t border-gray-200">
                     <span>Total</span>
-                    <span>${room.price * Math.ceil((localCheckOut.getTime() - localCheckIn.getTime()) / (1000 * 60 * 60 * 24))}</span>
+                    <span>
+                      ${
+                        (selectedBoard === 'BB' ? room.price : 
+                         selectedBoard === 'HB' ? room.priceHalfBoard : 
+                         room.priceFullBoard) * Math.ceil((localCheckOut.getTime() - localCheckIn.getTime()) / (1000 * 60 * 60 * 24))
+                      }
+                    </span>
                   </div>
                 </div>
               )}

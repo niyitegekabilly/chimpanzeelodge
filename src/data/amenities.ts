@@ -3,46 +3,46 @@ import { Amenity } from '../types';
 export const amenities: Amenity[] = [
   {
     id: '1',
-    name: 'Canopy Bar',
-    description: 'Our elegant rooftop bar offers breathtaking views of the forest canopy. Enjoy craft cocktails and premium spirits while watching the sunset over Nyungwe National Park. Our mixologists specialize in unique creations using local ingredients and flavors.',
+    name: 'Dining Area',
+    description: 'Our dining area serves both international and local meals to meet guests\' preferences. Enjoy continental breakfast, lunch, and dinner in the main building or in the garden, served by our well-trained and friendly staff.',
     images: [
       'https://images.pexels.com/photos/274192/pexels-photo-274192.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       'https://images.pexels.com/photos/1554654/pexels-photo-1554654.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    ],
+    openingHours: 'Breakfast: 7:00 AM - 10:30 AM | Lunch: 12:30 PM - 3:00 PM | Dinner: 6:30 PM - 10:00 PM',
+    type: 'dining'
+  },
+  {
+    id: '2',
+    name: 'Bar & Lounge',
+    description: 'Our well-stocked bar and shared lounge offers a variety of drinks, including local options, cocktails, wines, spirits, and international beers. Relax and enjoy your drink while overlooking the spectacular view of the forest, tea plantation estate, and surrounding areas.',
+    images: [
+      'https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     ],
     openingHours: '4:00 PM - 12:00 AM',
     type: 'bar'
   },
   {
-    id: '2',
-    name: 'Fitness Center',
-    description: 'Stay active during your stay with our fully-equipped fitness center. Featuring modern cardio and strength training equipment, free weights, and yoga mats. Personal trainers are available upon request for private sessions.',
-    images: [
-      'https://images.pexels.com/photos/3076509/pexels-photo-3076509.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      'https://images.pexels.com/photos/1954524/pexels-photo-1954524.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    ],
-    openingHours: '6:00 AM - 10:00 PM',
-    type: 'gym'
-  },
-  {
     id: '3',
-    name: 'Rainforest Spa',
-    description: 'Indulge in luxurious treatments inspired by traditional Rwandan wellness practices. Our spa uses organic, locally-sourced ingredients for massages, facials, and body treatments. Enjoy our steam room, sauna, and relaxation lounge with forest views.',
+    name: 'Craft Shop',
+    description: 'Visit our craft shop featuring African-style gifts including shoes, jewelry, guide books, clothes, and safari essentials.',
     images: [
       'https://images.pexels.com/photos/3757952/pexels-photo-3757952.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       'https://images.pexels.com/photos/3757942/pexels-photo-3757942.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     ],
-    openingHours: '9:00 AM - 8:00 PM',
-    type: 'spa'
+    openingHours: '9:00 AM - 6:00 PM',
+    type: 'shop'
   },
   {
     id: '4',
-    name: 'Infinity Pool',
-    description: 'Our stunning infinity pool appears to merge with the forest canopy, offering a unique swimming experience. Relax on comfortable loungers with poolside service from our bar and restaurant. Towels provided.',
+    name: 'Additional Services',
+    description: 'We offer various additional services including solar energy, airport pickups and drop-offs, ample parking space, laundry services, and WiFi internet access throughout the lodge.',
     images: [
       'https://images.pexels.com/photos/261327/pexels-photo-261327.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       'https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
     ],
-    openingHours: '7:00 AM - 7:00 PM',
-    type: 'pool'
+    openingHours: '24/7',
+    type: 'services'
   }
 ];

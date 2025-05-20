@@ -45,6 +45,9 @@ const Footer: React.FC = () => {
               <li>
                 <Link to="/amenities" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">Amenities</Link>
               </li>
+              <li>
+                <Link to="/terms" className="text-gray-300 hover:text-amber-400 transition-colors duration-300">Terms & Conditions</Link>
+              </li>
             </ul>
           </div>
 
@@ -58,11 +61,11 @@ const Footer: React.FC = () => {
               </li>
               <li className="flex items-center">
                 <Phone className="h-5 w-5 text-amber-400 mr-2" />
-                <span className="text-gray-300">+250 788 123 456</span>
+                <span className="text-gray-300">+250 788 467 700</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-amber-400 mr-2" />
-                <span className="text-gray-300">info@chimpanzeelodges.com</span>
+                <span className="text-gray-300">champanzeelodges@gmail.com</span>
               </li>
             </ul>
           </div>

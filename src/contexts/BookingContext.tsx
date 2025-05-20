@@ -15,20 +15,26 @@ interface BookingContextType {
   cancelBooking: (bookingId: string) => void;
   calculateTotalPrice: () => number;
   isRoomAvailable: (roomId: string, checkIn: Date, checkOut: Date) => boolean;
+  selectedBoard: 'BB' | 'HB' | 'FB';
+  setSelectedBoard: (board: 'BB' | 'HB' | 'FB') => void;
 }
 
 const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
+  const [selectedRoom, setSelectedRoomState] = useState<Room | null>(null);
   const [checkInDate, setCheckInDate] = useState<Date | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Date | null>(null);
   const [guests, setGuests] = useState<number>(1);
   const [bookings, setBookings] = useState<Booking[]>([]);
+  const [selectedBoard, setSelectedBoard] = useState<'BB' | 'HB' | 'FB'>('BB');
 
   const addBooking = (booking: Booking) => {
-    setBookings([...bookings, booking]);
+    // Ensure the booking object includes the selected board type
+    const bookingWithBoard = { ...booking, boardType: selectedBoard };
+    setBookings([...bookings, bookingWithBoard]);
     // In a real app, this would make an API call to save the booking
+    console.log('Booking added:', bookingWithBoard);
   };
 
   const cancelBooking = (bookingId: string) => {
@@ -40,7 +46,20 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     if (!selectedRoom || !checkInDate || !checkOutDate) return 0;
     
     const days = Math.ceil((checkOutDate.getTime() - checkInDate.getTime()) / (1000 * 60 * 60 * 24));
-    return selectedRoom.price * days;
+    
+    let pricePerNight = 0;
+    if (selectedBoard === 'BB') {
+      pricePerNight = selectedRoom.price;
+    } else if (selectedBoard === 'HB' && selectedRoom.priceHalfBoard) {
+      pricePerNight = selectedRoom.priceHalfBoard;
+    } else if (selectedBoard === 'FB' && selectedRoom.priceFullBoard) {
+      pricePerNight = selectedRoom.priceFullBoard;
+    } else {
+      // Fallback to BB price if selected board price is not available
+      pricePerNight = selectedRoom.price;
+    }
+
+    return pricePerNight * days;
   };
 
   const isRoomAvailable = (roomId: string, checkIn: Date, checkOut: Date) => {
@@ -54,6 +73,13 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
     );
   };
 
+  const handleSetSelectedRoom = (room: Room | null) => {
+    setSelectedRoomState(room);
+    if (room) {
+      setSelectedBoard('BB');
+    }
+  };
+
   return (
     <BookingContext.Provider value={{
       selectedRoom,
@@ -61,14 +87,16 @@ export const BookingProvider: React.FC<{ children: React.ReactNode }> = ({ child
       checkOutDate,
       guests,
       bookings,
-      setSelectedRoom,
+      setSelectedRoom: handleSetSelectedRoom,
       setCheckInDate,
       setCheckOutDate,
       setGuests,
       addBooking,
       cancelBooking,
       calculateTotalPrice,
-      isRoomAvailable
+      isRoomAvailable,
+      selectedBoard,
+      setSelectedBoard
     }}>
       {children}
     </BookingContext.Provider>

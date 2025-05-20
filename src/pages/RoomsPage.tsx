@@ -243,11 +243,19 @@ const RoomsPage: React.FC = () => {
                 <div className="md:w-3/5 p-6">
                   <div className="flex justify-between items-start">
                     <h3 className="text-xl font-bold text-gray-900">{room.name}</h3>
-                    <span className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium">
-                      ${room.price}/night
-                    </span>
+                    {/* Display price range or a label */}
+                    {/* <span className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-medium">
+                      From ${room.price}/night
+                    </span> */}
                   </div>
                   
+                  {/* Display different rate options */}
+                  <div className="mt-2 mb-4 text-sm text-gray-800">
+                    <p><span className="font-semibold">BB:</span> ${room.price}/night</p>
+                    {room.priceHalfBoard && <p><span className="font-semibold">HB:</span> ${room.priceHalfBoard}/night</p>}
+                    {room.priceFullBoard && <p><span className="font-semibold">FB:</span> ${room.priceFullBoard}/night</p>}
+                  </div>
+
                   <p className="text-gray-700 mt-2">{room.description.substring(0, 100)}...</p>
                   
                   <div className="mt-4 grid grid-cols-2 gap-2">
@@ -278,7 +286,8 @@ const RoomsPage: React.FC = () => {
                     <Link to={`/rooms/${room.id}`}>
                       <Button variant="outline" size="sm">View Details</Button>
                     </Link>
-                    <Link to={`/booking?roomId=${room.id}`}>
+                    {/* Change Book Now button to link to Room Detail page */}
+                    <Link to={`/rooms/${room.id}`}> 
                       <Button size="sm">Book Now</Button>
                     </Link>
                   </div>
@@ -295,6 +304,16 @@ const RoomsPage: React.FC = () => {
             </div>
           )}
         </div>
+      </div>
+
+      <div className="text-center mb-16">
+        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Our Accommodations</h2>
+        <p className="text-lg md:text-xl max-w-3xl mx-auto">
+          Discover our range of rooms and suites, each designed to provide comfort, luxury, and unforgettable views of Nyungwe National Park.
+        </p>
+        <p className="text-sm text-gray-600 mt-2">
+          All rates are in USD and include 18% tax, all meals, and selected local beverages.
+        </p>
       </div>
     </div>
   );

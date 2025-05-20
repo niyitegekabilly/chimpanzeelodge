@@ -45,12 +45,12 @@ const HomePage: React.FC = () => {
             }`}
           >
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              Experience the Magic of <br />
-              <span className="text-amber-400">Nyungwe Forest</span>
+              Welcome to <br />
+              <span className="text-amber-400">Chimpanzee Lodge Nyungwe</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-200 mb-8 max-w-3xl mx-auto">
-              Luxury accommodations nestled in the heart of Rwanda's pristine rainforest, 
-              offering unforgettable experiences and unparalleled comfort.
+              A 3-star mid-range accommodation nestled 4km from Karamba Hiking trails in southwestern Rwanda, 
+              offering comfortable stays and unforgettable chimpanzee tracking experiences.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
               <Button size="lg" onClick={() => {}}>
@@ -149,17 +149,18 @@ const HomePage: React.FC = () => {
             </div>
             <div className="lg:w-1/2">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Welcome to <span className="text-green-800">Chimpanzee Lodges</span>
+                Welcome to <span className="text-green-800">Chimpanzee Lodge Nyungwe</span>
               </h2>
               <p className="text-lg text-gray-700 mb-6">
-                Nestled in the heart of Rwanda's pristine Nyungwe National Park, Chimpanzee Lodges offers an unparalleled 
-                combination of luxury and adventure. Our eco-friendly resort sits at the edge of one of Africa's oldest rainforests,
-                providing a perfect base to explore the rich biodiversity of the region.
+                Located just 4km from the vast Nyungwe Forest National Park in southwestern Rwanda, our lodge offers 
+                convenient access to chimpanzee tracking activities and forest canopy experiences. The lodge is easily 
+                accessible by road from Kigali International Airport (4-5 hours) or by domestic flight to Kamembe airstrip 
+                followed by a one-hour transfer.
               </p>
               <p className="text-lg text-gray-700 mb-6">
-                With spacious, elegantly appointed rooms, world-class dining, and exceptional amenities, we pride ourselves on
-                creating unforgettable experiences for our guests while maintaining a commitment to sustainable tourism and
-                conservation.
+                Our lodge features 12 comfortable and spacious rooms overlooking the forest canopy, reflecting modern 
+                building style with high levels of comfort. Each room is well-decorated and furnished with private 
+                en-suite facilities, including flushing toilets, hot and cold showers, mosquito nets, and more.
               </p>
               <div className="grid grid-cols-2 gap-4 mb-8">
                 <div className="flex items-center">

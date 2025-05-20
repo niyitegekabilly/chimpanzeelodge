@@ -10,12 +10,14 @@ export interface Room {
   name: string;
   description: string;
   price: number;
+  priceHalfBoard?: number;
+  priceFullBoard?: number;
   capacity: number;
   images: string[];
   amenities: string[];
   size: number;
-  type: 'standard' | 'deluxe' | 'suite';
-  view: 'forest' | 'garden' | 'mountain';
+  type: string;
+  view: string;
 }
 
 export interface Booking {
@@ -28,6 +30,7 @@ export interface Booking {
   totalPrice: number;
   status: 'pending' | 'confirmed' | 'cancelled';
   createdAt: Date;
+  boardType: 'BB' | 'HB' | 'FB';
 }
 
 export interface Restaurant {

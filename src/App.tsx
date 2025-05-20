@@ -14,6 +14,7 @@ import BookingPage from './pages/BookingPage';
 import BookingConfirmationPage from './pages/BookingConfirmationPage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
+import AdminBookingsPage from './pages/AdminBookingsPage';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="/booking-confirmation" element={<BookingConfirmationPage />} />
               <Route path="/my-bookings" element={<MyBookingsPage />} />
               <Route path="/admin" element={<AdminDashboardPage />} />
+              <Route path="/admin/bookings" element={<AdminBookingsPage />} />
             </Routes>
           </Layout>
         </Router>
