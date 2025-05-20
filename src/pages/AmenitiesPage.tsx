@@ -24,7 +24,7 @@ const AmenitiesPage: React.FC = () => {
       <div className="relative bg-green-900 text-white py-24">
         <div className="absolute inset-0 overflow-hidden">
           <img 
-            src="https://images.pexels.com/photos/6186815/pexels-photo-6186815.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+            src={'/images/amenities/hero.jpeg'} 
             alt="Amenities at Chimpanzee Lodges" 
             className="w-full h-full object-cover opacity-25"
           />

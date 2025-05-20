@@ -19,7 +19,7 @@ const ConferencePage: React.FC = () => {
       <div className="relative bg-green-900 text-white py-24">
         <div className="absolute inset-0 overflow-hidden">
           <img 
-            src="https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+            src={'/images/conference/house.jpeg'} 
             alt="Conference Facilities" 
             className="w-full h-full object-cover opacity-25"
           />
@@ -39,7 +39,7 @@ const ConferencePage: React.FC = () => {
           <div className="lg:flex lg:items-center lg:gap-12">
             <div className="lg:w-1/2 mb-8 lg:mb-0">
               <img 
-                src="https://images.pexels.com/photos/2833037/pexels-photo-2833037.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                src={'/images/conference/house.jpeg'} 
                 alt="Conference Facilities" 
                 className="rounded-lg shadow-lg h-[400px] w-full object-cover"
               />
@@ -215,7 +215,7 @@ const ConferencePage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48">
                 <img 
-                  src="https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                  src={'/images/conference/41e0bdb9-45f4-4393-851e-cd7fc1aad54f.jpg'} 
                   alt="Corporate Meetings" 
                   className="w-full h-full object-cover"
                 />
@@ -231,7 +231,7 @@ const ConferencePage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48">
                 <img 
-                  src="https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                  src={'/images/conference/1181396.jpg'} 
                   alt="Team Retreats" 
                   className="w-full h-full object-cover"
                 />
@@ -247,7 +247,7 @@ const ConferencePage: React.FC = () => {
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className="h-48">
                 <img 
-                  src="https://images.pexels.com/photos/169190/pexels-photo-169190.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                  src={'/images/conference/169190.jpg'} 
                   alt="Special Events" 
                   className="w-full h-full object-cover"
                 />
@@ -289,7 +289,7 @@ const ConferencePage: React.FC = () => {
             </div>
             <div className="hidden md:block md:w-1/2">
               <img 
-                src="https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                src={'/images/conference/3184465.jpg'} 
                 alt="Event Planning" 
                 className="w-full h-full object-cover"
               />

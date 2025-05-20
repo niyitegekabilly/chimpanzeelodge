@@ -33,7 +33,7 @@ const HomePage: React.FC = () => {
       <div 
         className="relative h-screen bg-cover bg-center flex items-center" 
         style={{ 
-          backgroundImage: 'url("https://images.pexels.com/photos/2480608/pexels-photo-2480608.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")',
+          backgroundImage: 'url(\'/images/hero/1707c1d8-30a0-450a-8a7d-463dffb6a852.jpg\')',
           backgroundPosition: 'center 30%' 
         }}
       >
@@ -142,7 +142,7 @@ const HomePage: React.FC = () => {
           <div className="lg:flex lg:items-center lg:gap-12">
             <div className="lg:w-1/2 mb-10 lg:mb-0">
               <img 
-                src="https://images.pexels.com/photos/5039367/pexels-photo-5039367.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+                src={'/images/hero/premises.jpeg'} 
                 alt="Chimpanzee Lodges" 
                 className="rounded-lg shadow-lg object-cover h-[500px] w-full"
               />
