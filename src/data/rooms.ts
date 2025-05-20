@@ -10,7 +10,7 @@ export const rooms: Room[] = [
     priceFullBoard: 131,
     capacity: 1,
     images: [
-      '/images/rooms/single-room-1.jpg',
+      '/images/rooms/single.jpg',
       '/images/rooms/single-room-2.jpg'
     ],
     amenities: ['Free WiFi', 'Private bathroom', 'Hot and cold shower', 'Mosquito net', 'Flushing toilet', 'Free toiletries', 'Complementary bottled water'],
@@ -27,7 +27,7 @@ export const rooms: Room[] = [
     priceFullBoard: 207,
     capacity: 2,
     images: [
-      '/images/rooms/double-room-1.jpg',
+      '/images/rooms/double-bed.jpg',
       '/images/rooms/double-room-2.jpg'
     ],
     amenities: ['Free WiFi', 'Private bathroom', 'Hot and cold shower', 'Mosquito net', 'Flushing toilet', 'Free toiletries', 'Complementary bottled water', 'Sitting area'],
@@ -44,7 +44,7 @@ export const rooms: Room[] = [
     priceFullBoard: 207,
     capacity: 2,
     images: [
-      '/images/rooms/twin-room-1.jpg',
+      '/images/rooms/twin-bed.jpg',
       '/images/rooms/twin-room-2.jpg'
     ],
     amenities: ['Free WiFi', 'Private bathroom', 'Hot and cold shower', 'Mosquito net', 'Flushing toilet', 'Free toiletries', 'Complementary bottled water'],
@@ -61,8 +61,8 @@ export const rooms: Room[] = [
     priceFullBoard: 333,
     capacity: 3,
     images: [
-      '/images/rooms/triple-room-1.jpg',
-      '/images/rooms/triple-room-2.jpg'
+      '/images/rooms/tripple-bed.jpg',
+      '/images/rooms/tripple-bed.jpg'
     ],
     amenities: ['Free WiFi', 'Private bathroom', 'Hot and cold shower', 'Mosquito net', 'Flushing toilet', 'Free toiletries', 'Complementary bottled water', 'Sitting area'],
     size: 40,
@@ -78,7 +78,7 @@ export const rooms: Room[] = [
     priceFullBoard: 111,
     capacity: 1,
     images: [
-      '/images/rooms/budget-single-room-1.jpg',
+      '/images/rooms/budget-single.jpg',
       '/images/rooms/budget-single-room-2.jpg'
     ],
     amenities: ['Free WiFi', 'Private bathroom', 'Hot and cold shower', 'Mosquito net', 'Flushing toilet', 'Free toiletries'],

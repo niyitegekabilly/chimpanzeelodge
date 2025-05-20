@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
                     location.pathname === link.path
                       ? 'text-amber-400 bg-green-800 bg-opacity-50'
-                      : 'text-white hover:text-amber-300'
+                      : isScrolled ? 'text-white hover:text-amber-300' : 'text-gray-800 hover:text-gray-600'
                   }`}
                 >
                   {link.name}
@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
                   <div>
                     <button
                       onClick={toggleDropdown}
-                      className="flex items-center text-white hover:text-amber-300 px-3 py-2 rounded-md text-sm font-medium"
+                      className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${isScrolled ? 'text-white hover:text-amber-300' : 'text-gray-800 hover:text-gray-600'}`}
                     >
                       <User className="h-5 w-5 mr-1" />
                       <span>{user?.name.split(' ')[0]}</span>
@@ -108,7 +108,7 @@ const Navbar: React.FC = () => {
               ) : (
                 <Link
                   to="/login"
-                  className="px-3 py-2 rounded-md text-sm font-medium text-white hover:text-amber-300"
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${isScrolled ? 'text-white hover:text-amber-300' : 'text-gray-800 hover:text-gray-600'}`}
                 >
                   Login
                 </Link>
