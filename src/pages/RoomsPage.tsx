@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Filter, Users, Check } from 'lucide-react';
+import { Filter, Users, Check, Phone, MessageCircle } from 'lucide-react';
 import { rooms } from '../data/rooms';
 import Button from '../components/ui/Button';
 import { useBooking } from '../contexts/BookingContext';
@@ -81,6 +81,13 @@ const RoomsPage: React.FC = () => {
     });
   };
 
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '+250788467700';
+    const message = encodeURIComponent('Hello! I would like to inquire about room availability and pricing. Could you please share your current offers?');
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
+
   return (
     <div className="pt-16 bg-stone-50">
       {/* Hero Section */}
@@ -94,9 +101,33 @@ const RoomsPage: React.FC = () => {
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">Our Accommodations</h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto">
+          <p className="text-lg md:text-xl max-w-3xl mx-auto mb-8">
             Discover our range of rooms and suites, each designed to provide comfort, luxury, and unforgettable views of Nyungwe National Park.
           </p>
+          
+          {/* Contact Section */}
+          <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto">
+            <div className="text-center mb-4">
+              <h3 className="text-xl font-semibold text-white mb-2">Need Help with Pricing?</h3>
+              <p className="text-gray-200 text-sm">Contact us for current rates and special offers</p>
+            </div>
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <button
+                onClick={handleWhatsAppClick}
+                className="flex items-center justify-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-300 font-medium"
+              >
+                <Phone className="h-5 w-5 mr-2" />
+                +250 788 467 700
+              </button>
+              <button
+                onClick={handleWhatsAppClick}
+                className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-300 font-medium"
+              >
+                <MessageCircle className="h-5 w-5 mr-2" />
+                WhatsApp for Deals
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 

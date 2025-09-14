@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Calendar, MapPin, Coffee, Users } from 'lucide-react';
+import { Calendar, MapPin, Coffee, Users, Phone, MessageCircle } from 'lucide-react';
 import { rooms } from '../data/rooms';
 import { useBooking } from '../contexts/BookingContext';
 import Button from '../components/ui/Button';
@@ -22,6 +22,13 @@ const HomePage: React.FC = () => {
     setCheckInDate(localCheckIn);
     setCheckOutDate(localCheckOut);
     setGuests(localGuests);
+  };
+
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '+250788467700';
+    const message = encodeURIComponent('Hello! I would like to inquire about room availability and pricing. Could you please share your current offers?');
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   // Featured rooms (showing 3)
@@ -52,13 +59,37 @@ const HomePage: React.FC = () => {
               A 3-star mid-range accommodation nestled 4km from Karamba Hiking trails in southwestern Rwanda, 
               offering comfortable stays and unforgettable chimpanzee tracking experiences.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
               <Button size="lg" onClick={() => {}}>
                 Explore Our Rooms
               </Button>
               <Button variant="outline" size="lg" onClick={() => {}}>
                 Learn More
               </Button>
+            </div>
+            
+            {/* Contact Section */}
+            <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-lg p-6 max-w-2xl mx-auto">
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-semibold text-white mb-2">Need Help or Special Offers?</h3>
+                <p className="text-gray-200 text-sm">Contact us directly for the best rates and current availability</p>
+              </div>
+              <div className="flex flex-col sm:flex-row justify-center gap-3">
+                <button
+                  onClick={handleWhatsAppClick}
+                  className="flex items-center justify-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-300 font-medium"
+                >
+                  <Phone className="h-5 w-5 mr-2" />
+                  +250 788 467 700
+                </button>
+                <button
+                  onClick={handleWhatsAppClick}
+                  className="flex items-center justify-center px-6 py-3 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-300 font-medium"
+                >
+                  <MessageCircle className="h-5 w-5 mr-2" />
+                  WhatsApp for Deals
+                </button>
+              </div>
             </div>
           </div>
         </div>

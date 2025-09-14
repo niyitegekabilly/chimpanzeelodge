@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, User, ChevronDown } from 'lucide-react';
+import { Menu, X, User, ChevronDown, Phone, MessageCircle } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 const Navbar: React.FC = () => {
@@ -12,6 +12,13 @@ const Navbar: React.FC = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '+250788467700';
+    const message = encodeURIComponent('Hello! I would like to inquire about room availability and pricing. Could you please share your current offers?');
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +58,30 @@ const Navbar: React.FC = () => {
           
           <div className="hidden md:block">
             <div className="ml-10 flex items-center space-x-4">
+              {/* Phone Number */}
+              <div className="flex items-center space-x-2">
+                <button
+                  onClick={handleWhatsAppClick}
+                  className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
+                    isScrolled ? 'text-white hover:text-amber-300' : 'text-gray-800 hover:text-gray-600'
+                  }`}
+                  title="Contact us via WhatsApp"
+                >
+                  <Phone className="h-4 w-4 mr-1" />
+                  <span className="hidden lg:inline">+250 788 467 700</span>
+                  <span className="lg:hidden">Call</span>
+                </button>
+                <button
+                  onClick={handleWhatsAppClick}
+                  className={`flex items-center px-2 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
+                    isScrolled ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700'
+                  }`}
+                  title="WhatsApp us for best deals"
+                >
+                  <MessageCircle className="h-4 w-4" />
+                </button>
+              </div>
+              
               {navLinks.map((link) => (
                 <Link
                   key={link.name}
@@ -142,6 +173,24 @@ const Navbar: React.FC = () => {
       {isOpen && (
         <div className="md:hidden bg-green-900 bg-opacity-95">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            {/* Mobile Phone Number */}
+            <div className="px-3 py-2 border-b border-green-700 mb-2">
+              <button
+                onClick={handleWhatsAppClick}
+                className="flex items-center text-white hover:text-amber-300 transition-colors duration-300"
+              >
+                <Phone className="h-5 w-5 mr-2" />
+                <span className="text-base font-medium">+250 788 467 700</span>
+              </button>
+              <button
+                onClick={handleWhatsAppClick}
+                className="flex items-center text-green-400 hover:text-green-300 transition-colors duration-300 mt-1"
+              >
+                <MessageCircle className="h-4 w-4 mr-2" />
+                <span className="text-sm">WhatsApp for Best Deals</span>
+              </button>
+            </div>
+            
             {navLinks.map((link) => (
               <Link
                 key={link.name}

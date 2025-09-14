@@ -1,6 +1,8 @@
 import React from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import WhatsAppReminderModal from '../modals/WhatsAppReminderModal';
+import FloatingWhatsAppButton from '../ui/FloatingWhatsAppButton';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -14,6 +16,8 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         {children}
       </main>
       <Footer />
+      <WhatsAppReminderModal />
+      <FloatingWhatsAppButton />
     </div>
   );
 };

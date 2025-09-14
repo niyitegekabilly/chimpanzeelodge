@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Phone, Mail, Facebook, Instagram, Twitter } from 'lucide-react';
+import { MapPin, Phone, Mail, Facebook, Instagram, Twitter, MessageCircle } from 'lucide-react';
 
 const Footer: React.FC = () => {
   return (
@@ -66,6 +66,17 @@ const Footer: React.FC = () => {
               <li className="flex items-center">
                 <Mail className="h-5 w-5 text-amber-400 mr-2" />
                 <span className="text-gray-300">champanzeelodges@gmail.com</span>
+              </li>
+              <li className="flex items-center">
+                <a 
+                  href="https://wa.me/250788467700?text=Hello! I would like to inquire about room availability and pricing. Could you please share your current offers?"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center text-gray-300 hover:text-green-400 transition-colors duration-300"
+                >
+                  <MessageCircle className="h-5 w-5 text-amber-400 mr-2" />
+                  WhatsApp for Best Deals
+                </a>
               </li>
             </ul>
           </div>

@@ -15,6 +15,16 @@ import BookingConfirmationPage from './pages/BookingConfirmationPage';
 import MyBookingsPage from './pages/MyBookingsPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AdminBookingsPage from './pages/AdminBookingsPage';
+import NotFoundPage from './pages/NotFoundPage';
+import TermsPage from './pages/TermsPage';
+import AdminLayout from './components/admin/AdminLayout';
+import AdminDashboard from './pages/admin/AdminDashboard';
+import RoomManagement from './pages/admin/RoomManagement';
+import UserManagement from './pages/admin/UserManagement';
+import Analytics from './pages/admin/Analytics';
+import ContentManagement from './pages/admin/ContentManagement';
+import MediaManagement from './pages/admin/MediaManagement';
+import Settings from './pages/admin/Settings';
 
 function App() {
   return (
@@ -33,8 +43,18 @@ function App() {
               <Route path="/booking" element={<BookingPage />} />
               <Route path="/booking-confirmation" element={<BookingConfirmationPage />} />
               <Route path="/my-bookings" element={<MyBookingsPage />} />
-              <Route path="/admin" element={<AdminDashboardPage />} />
-              <Route path="/admin/bookings" element={<AdminBookingsPage />} />
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="bookings" element={<AdminBookingsPage />} />
+                <Route path="rooms" element={<RoomManagement />} />
+                <Route path="users" element={<UserManagement />} />
+                <Route path="analytics" element={<Analytics />} />
+                <Route path="content" element={<ContentManagement />} />
+                <Route path="media" element={<MediaManagement />} />
+                <Route path="settings" element={<Settings />} />
+              </Route>
+              <Route path="/terms" element={<TermsPage />} />
+              <Route path="*" element={<NotFoundPage />} />
             </Routes>
           </Layout>
         </Router>

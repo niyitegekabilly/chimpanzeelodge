@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Check, ChevronLeft, ChevronRight, Calendar, Info, Users } from 'lucide-react';
+import { Check, ChevronLeft, ChevronRight, Calendar, Info, Users, Phone, MessageCircle } from 'lucide-react';
 import { rooms } from '../data/rooms';
 import { useBooking } from '../contexts/BookingContext';
 import Button from '../components/ui/Button';
@@ -52,6 +52,13 @@ const RoomDetailPage: React.FC = () => {
   const prevImage = () => {
     if (!room) return;
     setCurrentImageIndex((prev) => (prev === 0 ? room.images.length - 1 : prev - 1));
+  };
+
+  const handleWhatsAppClick = () => {
+    const phoneNumber = '+250788467700';
+    const message = encodeURIComponent(`Hello! I'm interested in the ${room?.name || 'room'}. Could you please share current availability and pricing?`);
+    const whatsappUrl = `https://wa.me/${phoneNumber.replace('+', '')}?text=${message}`;
+    window.open(whatsappUrl, '_blank');
   };
 
   const handleBookNow = () => {
@@ -355,6 +362,28 @@ const RoomDetailPage: React.FC = () => {
               <p className="text-xs text-gray-500 mt-4 text-center">
                 You won't be charged yet. Payment will be collected at check-in.
               </p>
+              
+              {/* Contact Section */}
+              <div className="mt-6 pt-6 border-t border-gray-200">
+                <h3 className="text-sm font-semibold text-gray-900 mb-3 text-center">Need Help?</h3>
+                <p className="text-xs text-gray-600 mb-4 text-center">Contact us for pricing and availability</p>
+                <div className="space-y-2">
+                  <button
+                    onClick={handleWhatsAppClick}
+                    className="w-full flex items-center justify-center px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-300 text-sm font-medium"
+                  >
+                    <Phone className="h-4 w-4 mr-2" />
+                    +250 788 467 700
+                  </button>
+                  <button
+                    onClick={handleWhatsAppClick}
+                    className="w-full flex items-center justify-center px-4 py-2 bg-green-500 hover:bg-green-600 text-white rounded-lg transition-colors duration-300 text-sm font-medium"
+                  >
+                    <MessageCircle className="h-4 w-4 mr-2" />
+                    WhatsApp for Deals
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
