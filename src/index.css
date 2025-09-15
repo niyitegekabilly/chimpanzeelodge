@@ -13,4 +13,14 @@
   position: relative;
   z-index: 10;
   background: #f9fafb;
+  margin-left: 0;
+}
+
+/* Remove any gaps between sidebar and content */
+.lg\:ml-64 {
+  margin-left: 16rem;
+}
+
+.lg\:ml-16 {
+  margin-left: 4rem;
 }
