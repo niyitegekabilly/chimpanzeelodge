@@ -15,6 +15,17 @@ AS $$
   );
 $$;
 
+-- Drop existing policies if they exist and recreate them
+DROP POLICY IF EXISTS "Admins can view all bookings" ON bookings;
+DROP POLICY IF EXISTS "Admins can update all bookings" ON bookings;
+DROP POLICY IF EXISTS "Admins can delete all bookings" ON bookings;
+DROP POLICY IF EXISTS "Admins can view all users" ON users;
+DROP POLICY IF EXISTS "Admins can update all users" ON users;
+DROP POLICY IF EXISTS "Admins can insert users" ON users;
+DROP POLICY IF EXISTS "Admins can delete users" ON users;
+DROP POLICY IF EXISTS "Admins can manage all rooms" ON rooms;
+DROP POLICY IF EXISTS "Admins can view all payments" ON payments;
+
 -- Admin policies for bookings table
 CREATE POLICY "Admins can view all bookings"
   ON bookings
@@ -44,6 +55,18 @@ CREATE POLICY "Admins can view all users"
 CREATE POLICY "Admins can update all users"
   ON users
   FOR UPDATE
+  TO authenticated
+  USING (is_admin());
+
+CREATE POLICY "Admins can insert users"
+  ON users
+  FOR INSERT
+  TO authenticated
+  USING (is_admin());
+
+CREATE POLICY "Admins can delete users"
+  ON users
+  FOR DELETE
   TO authenticated
   USING (is_admin());
 

@@ -25,6 +25,8 @@ import Analytics from './pages/admin/Analytics';
 import ContentManagement from './pages/admin/ContentManagement';
 import MediaManagement from './pages/admin/MediaManagement';
 import Settings from './pages/admin/Settings';
+import Notifications from './pages/admin/Notifications';
+import SearchResults from './pages/admin/SearchResults';
 
 function App() {
   return (
@@ -32,16 +34,18 @@ function App() {
       <BookingProvider>
         <Router>
           <Routes>
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route index element={<AdminDashboard />} />
-              <Route path="bookings" element={<AdminBookingsPage />} />
-              <Route path="rooms" element={<RoomManagement />} />
-              <Route path="users" element={<UserManagement />} />
-              <Route path="analytics" element={<Analytics />} />
-              <Route path="content" element={<ContentManagement />} />
-              <Route path="media" element={<MediaManagement />} />
-              <Route path="settings" element={<Settings />} />
-            </Route>
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="bookings" element={<AdminBookingsPage />} />
+                  <Route path="rooms" element={<RoomManagement />} />
+                  <Route path="users" element={<UserManagement />} />
+                  <Route path="analytics" element={<Analytics />} />
+                  <Route path="content" element={<ContentManagement />} />
+                  <Route path="media" element={<MediaManagement />} />
+                  <Route path="notifications" element={<Notifications />} />
+                  <Route path="search" element={<SearchResults />} />
+                  <Route path="settings" element={<Settings />} />
+                </Route>
             <Route path="/*" element={
               <Layout>
                 <Routes>

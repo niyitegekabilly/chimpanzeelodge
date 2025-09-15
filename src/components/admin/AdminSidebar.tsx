@@ -35,6 +35,7 @@ const AdminSidebar: React.FC<AdminSidebarProps> = ({ isOpen, onToggle, isCollaps
     { name: 'Analytics', path: '/admin/analytics', icon: BarChart3 },
     { name: 'Content', path: '/admin/content', icon: FileText },
     { name: 'Media', path: '/admin/media', icon: Image },
+    { name: 'Notifications', path: '/admin/notifications', icon: Bell },
     { name: 'Settings', path: '/admin/settings', icon: Settings },
   ];
 
