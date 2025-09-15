@@ -8,17 +8,17 @@ import { useNavigate } from 'react-router-dom';
 // Define a type for the fetched data including joined tables
 interface BookingWithDetails {
   id: string;
-  room_id: string; // Keep original IDs for actions
+  room_id: string;
   user_id: string | null;
-  check_in: string; // Dates might come as strings from Supabase
+  check_in: string; // Dates come as strings from Supabase
   check_out: string;
   guests: number;
   total_price: number;
   status: 'pending' | 'confirmed' | 'cancelled';
-  created_at: string; // Dates might come as strings
-  boardType: 'BB' | 'HB' | 'FB';
+  created_at: string;
+  updated_at: string;
   rooms: { name: string | null } | null; // Joined room data
-  users: { full_name: string | null; email: string | null } | null; // Joined user data
+  users: { full_name: string | null } | null; // Joined user data
 }
 
 const AdminBookingsPage: React.FC = () => {
@@ -42,21 +42,25 @@ const AdminBookingsPage: React.FC = () => {
     setError(null);
     
     try {
+      // Query with proper foreign key relationships based on the actual schema
       const { data, error } = await supabase
         .from('bookings')
         .select(`
           *,
           rooms(name),
-          users(full_name, email)
+          users(full_name)
         `)
         .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error fetching bookings:', error);
+        console.error('Error details:', error.details);
+        console.error('Error hint:', error.hint);
         setError(`Failed to fetch bookings: ${error.message}`);
         setBookings([]);
       } else {
         console.log('Fetched bookings:', data);
+        console.log('Sample booking structure:', data?.[0]);
         setBookings(data as BookingWithDetails[] || []); 
       }
     } catch (err) {
@@ -297,7 +301,7 @@ const AdminBookingsPage: React.FC = () => {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check In</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Check Out</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guests</th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Board</th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Capacity</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Price</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -329,7 +333,7 @@ const AdminBookingsPage: React.FC = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
-                          {booking.boardType}
+                          {booking.guests} guest{booking.guests !== 1 ? 's' : ''}
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
