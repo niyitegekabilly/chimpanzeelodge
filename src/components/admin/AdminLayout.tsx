@@ -21,11 +21,7 @@ const AdminLayout: React.FC = () => {
         <AdminHeader onMenuToggle={toggleSidebar} title="Admin Dashboard" />
         
         {/* Page content */}
-        <main className="p-6 bg-blue-100 min-h-screen">
-          <div className="bg-green-200 p-4 mb-4">
-            <h2 className="text-xl font-bold">Admin Layout Content Area</h2>
-            <p>This should be visible if the layout is working</p>
-          </div>
+        <main className="p-6">
           <Outlet />
         </main>
       </div>
