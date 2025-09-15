@@ -30,118 +30,88 @@ const AdminBookingsPage: React.FC = () => {
   const { user, isAuthenticated, isLoading: isAuthLoading } = useAuth();
   const navigate = useNavigate();
 
-  // Note: In a real app, you would check authentication and admin status here
-  // For demo purposes, we'll show the admin page to all users
-
   // Fetch bookings from Supabase on component mount
   useEffect(() => {
-    fetchBookings();
-  }, []); // Fetch on mount
+    if (!isAuthLoading) {
+      fetchBookings();
+    }
+  }, [isAuthLoading]); // Fetch when auth loading is complete
 
   const fetchBookings = async () => {
     setLoading(true);
+    setError(null);
+    
     try {
       const { data, error } = await supabase
         .from('bookings')
-        // Select all booking fields and join with rooms (selecting name) and users (selecting full_name and email)
-        .select('*, rooms(name), users(full_name, email)');
+        .select(`
+          *,
+          rooms(name),
+          users(full_name, email)
+        `)
+        .order('created_at', { ascending: false });
 
       if (error) {
         console.error('Error fetching bookings:', error);
-        // For demo purposes, use mock data if Supabase fails
-        setBookings(getMockBookings());
+        setError(`Failed to fetch bookings: ${error.message}`);
+        setBookings([]);
       } else {
-        // Cast the fetched data to the new interface
-        setBookings(data as BookingWithDetails[] || getMockBookings()); 
+        console.log('Fetched bookings:', data);
+        setBookings(data as BookingWithDetails[] || []); 
       }
     } catch (err) {
       console.error('Error fetching bookings:', err);
-      // Use mock data as fallback
-      setBookings(getMockBookings());
+      setError('Failed to connect to database. Please try again.');
+      setBookings([]);
     }
     setLoading(false);
   };
 
-  // Mock data for demo purposes
-  const getMockBookings = (): BookingWithDetails[] => [
-    {
-      id: 'booking-001',
-      room_id: 'room-001',
-      user_id: 'user-001',
-      check_in: '2024-01-15',
-      check_out: '2024-01-18',
-      guests: 2,
-      total_price: 450.00,
-      status: 'confirmed',
-      created_at: '2024-01-10T10:00:00Z',
-      boardType: 'BB',
-      rooms: { name: 'Deluxe Double Room' },
-      users: { full_name: 'John Doe', email: 'john.doe@example.com' }
-    },
-    {
-      id: 'booking-002',
-      room_id: 'room-002',
-      user_id: 'user-002',
-      check_in: '2024-01-20',
-      check_out: '2024-01-22',
-      guests: 1,
-      total_price: 280.00,
-      status: 'pending',
-      created_at: '2024-01-12T14:30:00Z',
-      boardType: 'HB',
-      rooms: { name: 'Standard Single Room' },
-      users: { full_name: 'Jane Smith', email: 'jane.smith@example.com' }
-    },
-    {
-      id: 'booking-003',
-      room_id: 'room-003',
-      user_id: 'user-003',
-      check_in: '2024-01-25',
-      check_out: '2024-01-28',
-      guests: 4,
-      total_price: 720.00,
-      status: 'cancelled',
-      created_at: '2024-01-08T09:15:00Z',
-      boardType: 'FB',
-      rooms: { name: 'Family Suite' },
-      users: { full_name: 'Mike Johnson', email: 'mike.johnson@example.com' }
-    }
-  ];
 
   const handleConfirm = async (bookingId: string) => {
-    // Update booking status to 'confirmed' in Supabase
-    const { data, error } = await supabase
-      .from('bookings')
-      .update({ status: 'confirmed' })
-      .eq('id', bookingId);
+    try {
+      const { error } = await supabase
+        .from('bookings')
+        .update({ status: 'confirmed' })
+        .eq('id', bookingId);
 
-    if (error) {
-      console.error('Error confirming booking:', error);
-      setError('Failed to confirm booking.');
-    } else {
-      console.log(`Booking ${bookingId} confirmed`);
-      // Refresh the booking list
-      fetchBookings();
-      // In a real app, trigger confirmation notifications (email, in-system)
+      if (error) {
+        console.error('Error confirming booking:', error);
+        setError(`Failed to confirm booking: ${error.message}`);
+      } else {
+        console.log(`Booking ${bookingId} confirmed`);
+        // Refresh the booking list
+        await fetchBookings();
+        // Show success message (you could add a toast notification here)
+        alert('Booking confirmed successfully!');
+      }
+    } catch (err) {
+      console.error('Error confirming booking:', err);
+      setError('Failed to confirm booking. Please try again.');
     }
   };
 
   const handleCancel = async (bookingId: string) => {
     if (window.confirm('Are you sure you want to cancel this booking?')) {
-      // Update booking status to 'cancelled' in Supabase
-      const { data, error } = await supabase
-        .from('bookings')
-        .update({ status: 'cancelled' })
-        .eq('id', bookingId);
+      try {
+        const { error } = await supabase
+          .from('bookings')
+          .update({ status: 'cancelled' })
+          .eq('id', bookingId);
 
-      if (error) {
-        console.error('Error cancelling booking:', error);
-        setError('Failed to cancel booking.');
-      } else {
-        console.log(`Booking ${bookingId} cancelled`);
-        // Refresh the booking list
-        fetchBookings();
-        // In a real app, trigger cancellation notifications (email, in-system)
+        if (error) {
+          console.error('Error cancelling booking:', error);
+          setError(`Failed to cancel booking: ${error.message}`);
+        } else {
+          console.log(`Booking ${bookingId} cancelled`);
+          // Refresh the booking list
+          await fetchBookings();
+          // Show success message
+          alert('Booking cancelled successfully!');
+        }
+      } catch (err) {
+        console.error('Error cancelling booking:', err);
+        setError('Failed to cancel booking. Please try again.');
       }
     }
   };
@@ -166,6 +136,16 @@ const AdminBookingsPage: React.FC = () => {
           <p className="text-gray-600 mt-1">Manage hotel bookings, confirmations, and cancellations.</p>
         </div>
         <div className="flex items-center space-x-4">
+          <button 
+            onClick={fetchBookings}
+            disabled={loading}
+            className="flex items-center px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors disabled:opacity-50"
+          >
+            <svg className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            {loading ? 'Refreshing...' : 'Refresh'}
+          </button>
           <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
             <svg className="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -274,7 +254,21 @@ const AdminBookingsPage: React.FC = () => {
       
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-600">{error}</p>
+          <div className="flex items-center">
+            <svg className="h-5 w-5 text-red-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+            </svg>
+            <div>
+              <h3 className="text-sm font-medium text-red-800">Error loading bookings</h3>
+              <p className="text-sm text-red-600 mt-1">{error}</p>
+              <button 
+                onClick={fetchBookings}
+                className="mt-2 text-sm text-red-600 hover:text-red-800 underline"
+              >
+                Try again
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -316,19 +310,19 @@ const AdminBookingsPage: React.FC = () => {
                         #{booking.id.substring(0, 8)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {booking.rooms?.name || 'N/A'}
+                        {booking.rooms?.name || 'Room not found'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <div>
-                          <div className="font-medium text-gray-900">{booking.users?.full_name || 'N/A'}</div>
-                          <div className="text-gray-500">{booking.users?.email || ''}</div>
+                          <div className="font-medium text-gray-900">{booking.users?.full_name || 'Guest'}</div>
+                          <div className="text-gray-500">{booking.users?.email || 'No email'}</div>
                         </div>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(booking.check_in).toLocaleDateString()}
+                        {booking.check_in ? new Date(booking.check_in).toLocaleDateString() : 'N/A'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                        {new Date(booking.check_out).toLocaleDateString()}
+                        {booking.check_out ? new Date(booking.check_out).toLocaleDateString() : 'N/A'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         {booking.guests}
@@ -339,7 +333,7 @@ const AdminBookingsPage: React.FC = () => {
                         </span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                        ${booking.total_price.toFixed(2)}
+                        ${booking.total_price ? booking.total_price.toFixed(2) : '0.00'}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <span className={`px-2 py-1 text-xs font-semibold rounded-full ${
