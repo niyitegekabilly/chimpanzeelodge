@@ -16,7 +16,7 @@ const AdminLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex admin-content">
+    <div className="min-h-screen bg-gray-50 admin-content">
       {/* Sidebar */}
       <AdminSidebar 
         isOpen={sidebarOpen} 
@@ -26,8 +26,8 @@ const AdminLayout: React.FC = () => {
       />
       
       {/* Main content */}
-      <div className={`flex-1 admin-main transition-all duration-300 ${
-        sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-64'
+      <div className={`admin-main transition-all duration-300 ${
+        sidebarCollapsed ? 'ml-16' : 'ml-64'
       }`}>
         {/* Header */}
         <AdminHeader onMenuToggle={toggleSidebar} title="Admin Dashboard" />

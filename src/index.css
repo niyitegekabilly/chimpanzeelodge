@@ -13,14 +13,22 @@
   position: relative;
   z-index: 10;
   background: #f9fafb;
-  margin-left: 0;
+  min-height: 100vh;
 }
 
-/* Remove any gaps between sidebar and content */
-.lg\:ml-64 {
+/* Ensure no gaps between sidebar and content */
+.ml-64 {
   margin-left: 16rem;
 }
 
-.lg\:ml-16 {
+.ml-16 {
   margin-left: 4rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 1023px) {
+  .ml-64,
+  .ml-16 {
+    margin-left: 0;
+  }
 }
