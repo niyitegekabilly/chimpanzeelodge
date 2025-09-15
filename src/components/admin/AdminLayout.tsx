@@ -21,7 +21,7 @@ const AdminLayout: React.FC = () => {
         <AdminHeader onMenuToggle={toggleSidebar} title="Admin Dashboard" />
         
         {/* Page content */}
-        <main className="p-6">
+        <main className="p-6 pt-0">
           <Outlet />
         </main>
       </div>

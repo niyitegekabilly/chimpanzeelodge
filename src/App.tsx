@@ -31,32 +31,36 @@ function App() {
     <AuthProvider>
       <BookingProvider>
         <Router>
-          <Layout>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/rooms" element={<RoomsPage />} />
-              <Route path="/rooms/:id" element={<RoomDetailPage />} />
-              <Route path="/restaurant" element={<RestaurantPage />} />
-              <Route path="/conference" element={<ConferencePage />} />
-              <Route path="/amenities" element={<AmenitiesPage />} />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/booking" element={<BookingPage />} />
-              <Route path="/booking-confirmation" element={<BookingConfirmationPage />} />
-              <Route path="/my-bookings" element={<MyBookingsPage />} />
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
-                <Route path="bookings" element={<AdminBookingsPage />} />
-                <Route path="rooms" element={<RoomManagement />} />
-                <Route path="users" element={<UserManagement />} />
-                <Route path="analytics" element={<Analytics />} />
-                <Route path="content" element={<ContentManagement />} />
-                <Route path="media" element={<MediaManagement />} />
-                <Route path="settings" element={<Settings />} />
-              </Route>
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </Layout>
+          <Routes>
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<AdminDashboard />} />
+              <Route path="bookings" element={<AdminBookingsPage />} />
+              <Route path="rooms" element={<RoomManagement />} />
+              <Route path="users" element={<UserManagement />} />
+              <Route path="analytics" element={<Analytics />} />
+              <Route path="content" element={<ContentManagement />} />
+              <Route path="media" element={<MediaManagement />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+            <Route path="/*" element={
+              <Layout>
+                <Routes>
+                  <Route path="/" element={<HomePage />} />
+                  <Route path="/rooms" element={<RoomsPage />} />
+                  <Route path="/rooms/:id" element={<RoomDetailPage />} />
+                  <Route path="/restaurant" element={<RestaurantPage />} />
+                  <Route path="/conference" element={<ConferencePage />} />
+                  <Route path="/amenities" element={<AmenitiesPage />} />
+                  <Route path="/login" element={<LoginPage />} />
+                  <Route path="/booking" element={<BookingPage />} />
+                  <Route path="/booking-confirmation" element={<BookingConfirmationPage />} />
+                  <Route path="/my-bookings" element={<MyBookingsPage />} />
+                  <Route path="/terms" element={<TermsPage />} />
+                  <Route path="*" element={<NotFoundPage />} />
+                </Routes>
+              </Layout>
+            } />
+          </Routes>
         </Router>
       </BookingProvider>
     </AuthProvider>
